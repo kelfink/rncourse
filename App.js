@@ -7,7 +7,15 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
+
+import PlacesList from './src/components/PlacesList/PlacesList'
+import InputComponent from './src/components/InputComponent/InputComponent'
+
+import image1 from './assets/pikachu.png'
+import image2 from './assets/squirtle_sm.jpg'
+import image3 from './assets/mudkip.png'
+import image4 from './assets/ditto.jpg'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu. IT RELOADS ON IOS',
@@ -17,14 +25,55 @@ const instructions = Platform.select({
     'And it works reloading'
 });
 
-type Props = {};
-export default class App extends Component<Props> {
+
+export default class App extends Component {
+  state = {
+    places: [{ key: String(Math.random()),
+               name: 'Sacramento', 
+               image: image1},
+             { key: String(Math.random()), 
+                name: 'Roseville',
+                image: image2},
+             { key: String(Math.random()),
+                name: 'Chico',
+                image: image3}
+            ]
+  }
+
+
+  placeAddedHandler = (placeName) => {
+    if (placeName.trim() === "") {
+      return;
+    }
+
+    this.setState(prevState => {
+      return {
+        places: prevState.places.concat(
+          { key: String(Math.random()), 
+            name: placeName,
+            image: image4 })
+    }})
+  }
+
+  placeDeletedHandler = (key) => {
+    this.setState(prevState => {
+      return {
+        places: prevState.places.filter((place) => {
+          return place.key !== key
+        })
+      }
+    })
+  }
+
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <InputComponent onPlaceAdded={this.placeAddedHandler}/>
+       
+        <PlacesList 
+            places={this.state.places}
+            onItemDeleted={this.placeDeletedHandler}/>
       </View>
     );
   }
@@ -33,18 +82,11 @@ export default class App extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    padding: 26,
+    marginTop: 30,
+    height: 100,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "flex-start"
+  }
 });
