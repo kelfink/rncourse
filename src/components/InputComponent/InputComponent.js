@@ -20,9 +20,9 @@ import {Button, TextInput, View, StyleSheet} from 'react-native'
     return  (
     <View style={styles.inputContainer}>
         <TextInput style={styles.placeInput}
-        placeholder='Add a special place'
-        inlineImageLeft='search_icon'
-        onChangeText={this.placeNameChangeHandler} value={this.state.placeName}/>
+          placeholder='Add a special place'
+          inlineImageLeft='search_icon'
+          onChangeText={this.placeNameChangeHandler} value={this.state.placeName}/>
         <Button title="Add" style={styles.placeButton}
             onPress={this.placeSubmitHandler}/>
         </View>

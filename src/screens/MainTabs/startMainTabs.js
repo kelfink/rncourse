@@ -16,16 +16,16 @@ const startTabs = () => {
         Navigation.startTabBasedApp({
             tabs: [
                 {
-                    screen: "awesome-places.FindPlaceScreen",
-                    label: "Find Place l",
-                    title: "Find Place t",
-                    icon: sources[0]
-                },
-                {
                     screen: "awesome-places.SharePlaceScreen",
                     label: "Share Place l",
                     title: "Share Place t",
                     icon: sources[1]
+                },
+                {
+                    screen: "awesome-places.FindPlaceScreen",
+                    label: "Find Place l",
+                    title: "Find Place!",
+                    icon: sources[0]
                 },
                 {
                     screen: "awesome-places.AuthScreen",
