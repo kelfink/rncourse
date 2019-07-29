@@ -12,7 +12,7 @@ const styles =  StyleSheet.create({
         width: "100%",
         borderWidth: 1,
         padding: 5,
-        borderColor: "#ccf",
+        backgroundColor: "white",
         margin: 8
     }
 })
