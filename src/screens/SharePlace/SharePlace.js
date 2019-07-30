@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Image, ScrollView, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import InputComponent from '../../components/InputComponent/InputComponent'
 import { addPlace } from '../../store/actions/index'
+import MainText from '../../components/ui/MainText/MainText'
+import HeadingText from '../../components/ui/HeadingText/HeadingText'
+import ButtonStyled from '../../components/ui/ButtonStyled/ButtonStyled'
+import DefaultInput from '../../components/ui/DefaultInput/DefaultInput'
+import imagePlaceholder from '../../../assets/pikachu.png'
 
 class SharePlaceScreen extends Component {
     constructor(props) {
@@ -24,13 +29,38 @@ class SharePlaceScreen extends Component {
     }
     render() {
         return (
-            <View>
-                <Text>On the SharePlaceScreen</Text>
-                <InputComponent onPlaceAdded={this.placeAddedHandler} />
-            </View>
+            <ScrollView>
+                  <MainText><HeadingText>Share a place with us
+                </HeadingText></MainText>
+                <View style={styles.placeholder}>
+                  <Image style={styles.previewImage} source={imagePlaceholder}/>
+                </View>
+                <ButtonStyled title="pick image"/>
+                <View style={styles.placeholder}><Text>Map</Text></View>
+                <ButtonStyled title="locate me"/>
+                <DefaultInput placeholder="Place Name" />
+                <View style={styles.button}></View>
+                 <ButtonStyled title="Share the place"/>
+                <DefaultInput onPlaceAdded={this.placeAddedHandler} />
+            </ScrollView>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    button: {},
+    placeholder: {
+        borderWidth: 1,
+        borderColor: "black",
+        backgroundColor: "#eee",
+        width: "80%",
+        height: 150
+    },
+    previewImage: {
+        width: "100%",
+        height: "100%"
+    }
+})
 
 const mapDispatchToProps = dispatch => {
     return {

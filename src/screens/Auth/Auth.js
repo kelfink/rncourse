@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Button, StyleSheet, ImageBackground } from 'react-native'
 import DefaultInput from '../../components/ui/DefaultInput/DefaultInput'
 import startMainTabs from '../MainTabs/startMainTabs'
-import HeadingText from '../../components/ui/HeadingText/HeadingTest'
+import HeadingText from '../../components/ui/HeadingText/HeadingText'
 import MainText from '../../components/ui/MainText/MainText'
 import ButtonWithBackground from '../../components/ui/ButtonWithBackground/ButtonWithBackground'
 import image from '../../../assets/squirtle_sm.jpg'
