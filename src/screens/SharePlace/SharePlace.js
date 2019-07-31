@@ -7,6 +7,7 @@ import MainText from '../../components/ui/MainText/MainText'
 import HeadingText from '../../components/ui/HeadingText/HeadingText'
 import ButtonStyled from '../../components/ui/ButtonStyled/ButtonStyled'
 import DefaultInput from '../../components/ui/DefaultInput/DefaultInput'
+import ImagePicker from '../../components/ui/ImagePicker/ImagePicker'
 import imagePlaceholder from '../../../assets/pikachu.png'
 
 class SharePlaceScreen extends Component {
@@ -30,12 +31,9 @@ class SharePlaceScreen extends Component {
     render() {
         return (
             <ScrollView>
-                  <MainText><HeadingText>Share a place with us
+                <MainText><HeadingText>Share a Pokémon with us
                 </HeadingText></MainText>
-                <View style={styles.placeholder}>
-                  <Image style={styles.previewImage} source={imagePlaceholder}/>
-                </View>
-                <ButtonStyled title="pick image"/>
+                <ImagePicker/>
                 <View style={styles.placeholder}><Text>Map</Text></View>
                 <ButtonStyled title="locate me"/>
                 <DefaultInput placeholder="Place Name" />
