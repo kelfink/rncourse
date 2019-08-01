@@ -21,7 +21,8 @@ class PickLocation extends Component {
 const styles = StyleSheet.create({
     container: {
       backgroundColor: "grey",
-      alignItems: "center"
+      alignItems: "center",
+      width: "100%"
     },
     placeholder: {
       borderWidth: 1,

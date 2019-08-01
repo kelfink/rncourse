@@ -20,13 +20,14 @@ export default class ImagePicker extends Component {
 const styles = StyleSheet.create({
     container: {
       backgroundColor: "transparent",
-      alignItems: "center"
+      alignItems: "center",
+      width: "100%"
     },
     placeholder: {
       borderWidth: 1,
       borderColor: "black",
       backgroundColor: "#eee",
-      width: "80%",
+      width: "90%",
       height: 150
   },
   previewImage: {
