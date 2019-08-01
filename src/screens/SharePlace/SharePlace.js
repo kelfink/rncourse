@@ -9,7 +9,7 @@ import ButtonStyled from '../../components/ui/ButtonStyled/ButtonStyled'
 import DefaultInput from '../../components/ui/DefaultInput/DefaultInput'
 import ImagePicker from '../../components/ui/ImagePicker/ImagePicker'
 import imagePlaceholder from '../../../assets/pikachu.png'
-
+import PickLocation from '../../components/PickLocation/PickLocation'
 class SharePlaceScreen extends Component {
     constructor(props) {
         super(props);
@@ -33,9 +33,10 @@ class SharePlaceScreen extends Component {
             <ScrollView>
                 <MainText><HeadingText>Share a Pokémon with us
                 </HeadingText></MainText>
+
                 <ImagePicker/>
-                <View style={styles.placeholder}><Text>Map</Text></View>
-                <ButtonStyled title="locate me"/>
+                <PickLocation/>
+
                 <DefaultInput placeholder="Place Name" />
                 <View style={styles.button}></View>
                  <ButtonStyled title="Share the place"/>
