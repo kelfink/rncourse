@@ -37,7 +37,7 @@ class SharePlaceScreen extends Component {
     }
 
     placeAddedHandler = () => {
-
+        console.log("Place added", this.state)
         if (this.state.placeName.trim() !== "") {
             console.log("adding", this.state.placeName)
             this.props.onAddPlace(this.state.placeName)
@@ -55,8 +55,6 @@ class SharePlaceScreen extends Component {
                   placeName={this.state.placeName}
                   onChangeText={this.placeNameChangeHandler}
                   />
-                  <Text>----after place input -- </Text>
-                <View style={styles.button}></View>
                  <ButtonStyled title="Share the place"
                    onPress={this.placeAddedHandler}/>
             </ScrollView>
