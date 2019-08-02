@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text, Image, ScrollView, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import InputComponent from '../../components/InputComponent/InputComponent'
+//import InputComponent from '../../components/InputComponent/InputComponent'
+import PlaceInput from '../../components/PlaceInput/PlaceInput'
 import { addPlace } from '../../store/actions/index'
 import MainText from '../../components/ui/MainText/MainText'
 import HeadingText from '../../components/ui/HeadingText/HeadingText'
@@ -10,7 +11,13 @@ import DefaultInput from '../../components/ui/DefaultInput/DefaultInput'
 import ImagePicker from '../../components/ui/ImagePicker/ImagePicker'
 import imagePlaceholder from '../../../assets/pikachu.png'
 import PickLocation from '../../components/PickLocation/PickLocation'
+
 class SharePlaceScreen extends Component {
+
+    state = {
+        placeName: ""
+    }
+
     constructor(props) {
         super(props);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
@@ -25,8 +32,16 @@ class SharePlaceScreen extends Component {
             }
         }
     }
-    placeAddedHandler = (placeName) => {
-        this.props.onAddPlace(placeName)
+    placeNameChangeHandler = (value) => { 
+        this.setState({placeName: value})
+    }
+
+    placeAddedHandler = () => {
+
+        if (this.state.placeName.trim() !== "") {
+            console.log("adding", this.state.placeName)
+            this.props.onAddPlace(this.state.placeName)
+        }
     }
     render() {
         return (
@@ -36,11 +51,14 @@ class SharePlaceScreen extends Component {
 
                 <ImagePicker/>
                 <PickLocation/>
-
-                <DefaultInput placeholder="Place Name" />
+                <PlaceInput 
+                  placeName={this.state.placeName}
+                  onChangeText={this.placeNameChangeHandler}
+                  />
+                  <Text>----after place input -- </Text>
                 <View style={styles.button}></View>
-                 <ButtonStyled title="Share the place"/>
-                <DefaultInput onPlaceAdded={this.placeAddedHandler} />
+                 <ButtonStyled title="Share the place"
+                   onPress={this.placeAddedHandler}/>
             </ScrollView>
         )
     }
