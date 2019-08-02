@@ -1,13 +1,12 @@
 import React from 'react';
 import DefaultInput from '../ui/DefaultInput/DefaultInput';
 
-placeInput = props => (
+const placeInput = props => (
     <DefaultInput
         placeholder="Place Name"
         value={props.placeName}
         onChangeText={props.onChangeText}
     />
-
 )
  
 export default placeInput
