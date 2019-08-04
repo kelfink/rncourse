@@ -13,7 +13,8 @@ const styles =  StyleSheet.create({
         borderWidth: 1,
         padding: 5,
         backgroundColor: "white",
-        margin: 8
+        marginTop: 8,
+        marginRight: 8
     }
 })
 
