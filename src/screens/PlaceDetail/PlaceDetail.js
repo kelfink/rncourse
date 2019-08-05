@@ -1,10 +1,28 @@
 import React, { Component } from 'react'
-import { Platform, Modal, View, Image, Text, Button, StyleSheet, TouchableOpacity } from 'react-native'
+import { Platform, Dimensions, View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { deletePlace } from '../../store/actions/index'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 class PlaceDetail extends Component {
+    state = {
+        viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
+    }
+    constructor(props) {
+        super(props)
+        Dimensions.addEventListener("change", this.updateViewMode)
+    }
+
+    componentWillUnmount() {
+        Dimensions.removeEventListener('change', this.updateViewMode)
+    }
+
+    updateViewMode = (dims) => {
+        this.setState( {
+            viewMode: Dimensions.get('window').height > 500
+                ? "portrait" : "landscape"
+        })
+    }
 
     placeDeleteHandler = () => {
         this.props.onDeletePlace(this.props.selectedPlace.key)
@@ -12,43 +30,71 @@ class PlaceDetail extends Component {
     }
     render() {
         return (
-            <View style={styles.container}>
-                <View>
-                    <Image source={this.props.selectedPlace.image} 
-                    style={{borderWidth: 1, width: 50, height: 50}} />
-                    <Text>{this.props.selectedPlace.name}</Text>
-                </View>
-                <View style={styles.sidebyside}>
-                    <TouchableOpacity>
-                        <Icon size={30} name={Platform.OS === "android" ? "md-trash" : "ios-trash"} color="red" onPress={this.placeDeleteHandler}/>
-                    </TouchableOpacity>
-                </View>
+          <View
+            style={[
+              styles.container,
+              this.state.viewMode === "portrait"
+                ? styles.portraitContainer
+                : styles.landscapeContainer
+            ]}
+          >
+            <View style={styles.subContainer}>
+              <Image
+                source={this.props.selectedPlace.image}
+                style={styles.placeImage}
+              />
             </View>
-        )
+            <View style={styles.subContainer}>
+              <View>
+                <Text style={styles.placeName}>
+                  {this.props.selectedPlace.name}
+                </Text>
+              </View>
+              <View>
+                <TouchableOpacity onPress={this.placeDeletedHandler}>
+                  <View style={styles.deleteButton}>
+                    <Icon
+                      size={30}
+                      name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
+                      color="red"
+                    />
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        );
+      }
     }
-}
 
 
-const styles = StyleSheet.create({
-    container: {
-        margin: 62
-    },
-    sidebyside: {
-        //flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-      },
-    placeInput: {
-    width: "50%"
-    },
-    listImage: { borderWidth: 2, marginRight: 8, width: 28, height: 28},
-    placeImage: { width: "20%",
-                height: 40, borderWidth: 1
-    },
-    buttn: { 
-        backgroundColor: '#77f'
-    }
-})
+    const styles = StyleSheet.create({
+        container: {
+          margin: 22,
+          flex: 1
+        },
+        portraitContainer: {
+          flexDirection: "column"
+        },
+        landscapeContainer: {
+          flexDirection: "row"
+        },
+        placeImage: {
+          width: "100%",
+          height: 200
+        },
+        placeName: {
+          fontWeight: "bold",
+          textAlign: "center",
+          fontSize: 28
+        },
+        deleteButton: {
+          alignItems: "center"
+        },
+        subContainer: {
+          flex: 1
+        }
+      });
 
 const mapDispatchToProps = dispatch => { 
     return {

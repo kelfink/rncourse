@@ -12,16 +12,19 @@ class AuthScreen extends Component {
     }
     constructor(props) {
         super(props)
-        Dimensions.addEventListener("change", (dims) => {
-            console.log("dims changed", dims.window)
-            console.log("Dimension height", Dimensions.get('window').height)
-            this.setState( {
-                viewMode: Dimensions.get('window').height > 500 
-                    ? "portrait" : "landscape" 
-            })
-        })
+        Dimensions.addEventListener("change", this.updateViewMode)
     }
 
+    componentWillUnmount() {
+        Dimensions.removeEventListener('change', this.updateViewMode)
+    }
+    
+    updateViewMode = (dims) => {
+        this.setState( {
+            viewMode: Dimensions.get('window').height > 500
+                ? "portrait" : "landscape"
+        })
+    }
     loginHandler = () => {
         startMainTabs()
     }
