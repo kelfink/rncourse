@@ -6,12 +6,37 @@ import HeadingText from '../../components/ui/HeadingText/HeadingText'
 import MainText from '../../components/ui/MainText/MainText'
 import ButtonWithBackground from '../../components/ui/ButtonWithBackground/ButtonWithBackground'
 import image from '../../../assets/squirtle_sm.jpg'
+
 class AuthScreen extends Component {
     state = {
-        viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
+        viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape",
+        controls: {
+            email: {
+                value: "",
+                valid: false,
+                validationRules: {
+                    isEmail: true
+                }
+            },
+            password: {
+                value: "",
+                valid: false,
+                validationRules: {
+                    minLength: 6
+                }
+            },
+            confirmPassword: {
+                value: "",
+                valid: false,
+                validationRules: {
+                    equalTo: 'password'
+                }
+            },
+        }
     }
     constructor(props) {
         super(props)
+        console.log("construct", this.state.controls)
         Dimensions.addEventListener("change", this.updateViewMode)
     }
 
@@ -29,7 +54,19 @@ class AuthScreen extends Component {
         startMainTabs()
     }
 
-    
+    updateInputState = (key, value) => {
+        this.setState(prevState => {
+            return {
+                controls: {
+                    ...prevState.controls,
+                    [key]: {
+                        ...prevState.controls[key],
+                        value: value
+                    }
+                }
+            }
+        })
+    }
     render () {
         let headingText = null
         if (this.state.viewMode === "portrait") {
@@ -45,7 +82,12 @@ class AuthScreen extends Component {
                 {headingText}
                 <ButtonWithBackground buttonType="secondary">Switch to Login</ButtonWithBackground>
                 <View style={styles.inputContainer}>
-                  <DefaultInput placeholder="Some Email Address" />
+                  <DefaultInput
+                     placeholder="Some Email Address"
+                     style={styles.input}
+                     value={this.state.controls.email.value}
+                     onChangeText={(val) => this.updateInputState('email', val)}
+                     />
                   <View style={
                       this.state.viewMode === "portrait" ? styles.portraitPasswordContainer
                       : styles.landscapePasswordContainer
@@ -53,12 +95,16 @@ class AuthScreen extends Component {
                     <View style={
                         this.state.viewMode === "portrait" ? styles.portraitPasswordWrapper
                           : styles.landscapePasswordWrapper}>
-                      <DefaultInput placeholder="Password" />
+                      <DefaultInput placeholder="Password"
+                         style={styles.input}
+                      />
                     </View>
                     <View style={
                         this.state.viewMode === "portrait" ? styles.portraitPasswordWrapper
                           : styles.landscapePasswordWrapper}>
-                      <DefaultInput placeholder="Confirm Password" />
+                      <DefaultInput
+                        placeholder="Confirm Password"
+                        onChangeText={(val) => this.updateInputState('email', val)} />
                     </View>
                   </View>
                 </View>
@@ -83,7 +129,7 @@ const styles =  StyleSheet.create({
         flex: 1
     },
     input: {
-        backgroundColor: "#ccc",
+        backgroundColor: "#ccf",
         borderColor: "#777"
     },
     landscapePasswordContainer: {
