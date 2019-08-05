@@ -68,7 +68,12 @@ class FindPlaceScreen extends Component {
             }
         })
     }
+
     render() {
+        const spin = this.state.removeAnimation.interpolate({
+            inputRange: [0, 1],
+            outputRange: ['0deg', '360deg']
+          })
         let content = this.state.placesLoaded
                 ?  ( 
                     <Animated.View style={{
@@ -83,7 +88,10 @@ class FindPlaceScreen extends Component {
                               scale: this.state.removeAnimation.interpolate({
                                   inputRange: [0, 1],
                                   outputRange: [2, 1]
-                              })
+                              }),
+                          },
+                          {
+                            rotate: spin
                           }
                       ]
                 }}>
