@@ -16,21 +16,24 @@ class AuthScreen extends Component {
                 valid: false,
                 validationRules: {
                     isEmail: true
-                }
+                },
+                touched: false
             },
             password: {
                 value: "",
                 valid: false,
                 validationRules: {
                     minLength: 6
-                }
+                },
+                touched: false
             },
             confirmPassword: {
                 value: "",
                 valid: false,
                 validationRules: {
                     equalTo: 'password'
-                }
+                },
+                touched: false
             },
         }
     }
@@ -88,9 +91,11 @@ class AuthScreen extends Component {
                     [key]: {
                         ...prevState.controls[key],
                         value: value,
-                        valid: validate(value,
-                            prevState.controls[key].validationRules,
-                            connectedValue)
+                        valid: validate(
+                                value,
+                                prevState.controls[key].validationRules,
+                                connectedValue),
+                        touched: true
                     }
                 }
             }
@@ -113,9 +118,11 @@ class AuthScreen extends Component {
                 <View style={styles.inputContainer}>
                   <DefaultInput
                      placeholder="Some Email Address"
-                     style={[styles.input, (this.state.controls.email.valid ? null : {borderColor: 'red'})]}
+                     style={styles.input}
                      value={this.state.controls.email.value}
                      onChangeText={(val) => this.updateInputState('email', val)}
+                     valid={this.state.controls.email.valid}
+                     touched={this.state.controls.email.touched}
                      />
                   <View style={
                       this.state.viewMode === "portrait" ? styles.portraitPasswordContainer
@@ -125,18 +132,24 @@ class AuthScreen extends Component {
                         this.state.viewMode === "portrait" ? styles.portraitPasswordWrapper
                           : styles.landscapePasswordWrapper}>
                       <DefaultInput placeholder="Password"
-                         style={[styles.input, (this.state.controls.password.valid ? null : {borderColor: 'red'})]}
+                         style={styles.input}
                          value={this.state.controls.password.value}
                          onChangeText={(val) => this.updateInputState('password', val)}
-                      />
+                         valid={this.state.controls.password.valid}
+                         touched={this.state.controls.password.touched}
+                        />
                     </View>
                     <View style={
                         this.state.viewMode === "portrait" ? styles.portraitPasswordWrapper
                           : styles.landscapePasswordWrapper}>
                       <DefaultInput
-                        placeholder="Confirm Password"
-                        style={[styles.input, (this.state.controls.confirmPassword.valid ? null : {borderColor: 'red'})]}
-                        onChangeText={(val) => this.updateInputState('confirmPassword', val)} />
+                            placeholder="Confirm Password"
+                            style={styles.input}
+                            value={this.state.controls.confirmPassword.value}
+                            onChangeText={(val) => this.updateInputState('confirmPassword', val)}
+                            valid={this.state.controls.confirmPassword.valid}
+                            touched={this.state.controls.confirmPassword.touched}
+                            />
                     </View>
                   </View>
                 </View>
@@ -161,8 +174,7 @@ const styles =  StyleSheet.create({
         flex: 1
     },
     input: {
-        backgroundColor: "#ccf",
-        borderColor: "#777"
+        backgroundColor: "#ccf"
     },
     landscapePasswordContainer: {
         flexDirection:  "row",
