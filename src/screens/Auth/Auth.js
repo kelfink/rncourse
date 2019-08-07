@@ -119,7 +119,7 @@ class AuthScreen extends Component {
     render () {
         let headingText = null
         let confirmPasswordControl = (
-            <View><Text>Nothing</Text></View>
+            null
         )
         if (this.state.authMode === 'signup') {
             confirmPasswordControl = (
@@ -183,9 +183,10 @@ class AuthScreen extends Component {
                   </View>
                 </View>
                 <ButtonWithBackground
-                    disabled={!(this.state.controls.confirmPassword.valid &&
-                        this.state.controls.confirmPassword.valid &&
-                        this.state.controls.confirmPassword.valid)  }
+                    disabled={
+                        !((this.state.authMode === 'login' || this.state.controls.confirmPassword.valid) &&
+                        this.state.controls.password.valid &&
+                        this.state.controls.email.valid)  }
                     onPress={this.loginHandler}>
                         Submit
                     </ButtonWithBackground>
