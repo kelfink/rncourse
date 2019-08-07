@@ -8,18 +8,18 @@ const buttonWithBackground = props => {
                     ? styles.secondaryButton 
                     : styles.button, props.color 
                         ? {backgroundColor: props.color} 
-                        : null]}>
+                        : null, (props.disabled ? styles.disabled : null)]}>
         <Text>{props.children}</Text>
       </View>)
     if (Platform.OS === 'android' ) {
-        return (
+        return props.disabled ? ( [content] ) : (
             <TouchableNativeFeedback onPress={props.onPress}>
                {content}
             </TouchableNativeFeedback>
         )
     }
 
-    return (
+    return props.disabled ? ( [content]) : (
         <TouchableOpacity onPress={props.onPress}>
             {content}
         </TouchableOpacity>
@@ -43,6 +43,11 @@ const styles = StyleSheet.create({
         borderColor: "black",
         backgroundColor: "green"
     },
+    disabled: {
+        backgroundColor: "#ccc", 
+        color: "#aaa",
+        borderColor: "#aaa"
+    }
 })
 
 export default buttonWithBackground
