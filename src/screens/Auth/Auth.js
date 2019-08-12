@@ -15,7 +15,7 @@ import MainText from '../../components/ui/MainText/MainText'
 import ButtonWithBackground from '../../components/ui/ButtonWithBackground/ButtonWithBackground'
 import image from '../../../assets/squirtle_sm.jpg'
 import { validate } from '../../util/validation'
-import { tryAuth } from '../../store/actions/index';
+import { tryAuth } from '../../store/actions/index'
 class AuthScreen extends Component {
     state = {
         viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape",
